@@ -1,11 +1,15 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const exphbs = require('express-handlebars')
 
 mongoose.connect('mongodb://localhost/expanse', {useNewUrlParser: true})
 
 const db = mongoose.connection
 const Record = require('./models/records')
+
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.set('view engine', 'handlebars')
 
 db.on('error', ()=>{
   console.log('mongodb error!')
@@ -16,8 +20,8 @@ db.once('open', ()=>{
 })
 
 // 1) 在首頁一次瀏覽所有支出的清單
-app.get('/', (req,res)=>{
-  res.send('Hello')
+app.get('/', (req, res) => {
+  return res.render('index')
 })
 // 2) 在首頁看到所有支出清單的總金額
 app.get('/expanse', (req, res) => {
