@@ -1,11 +1,11 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-const Record = require('./models/record')
 
 mongoose.connect('mongodb://localhost/expanse', {useNewUrlParser: true})
 
 const db = mongoose.connection
+const Record = require('./models/records')
 
 db.on('error', ()=>{
   console.log('mongodb error!')
