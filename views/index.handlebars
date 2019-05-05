@@ -16,7 +16,7 @@
   </div>
   <div id="items_list">
     {{#each record}}
-    <li class="buy_item">
+    <li class="buy_item"><a href="/expanse/{{ this.id }}/edit">></a>
       <i class="fas fa-{{ this.category }}"></i>{{ this.name }}<span class="date">{{ this.date }}</span>
       <div class="price">{{ this.amount }}</div>
       <div class="del_btn">X</div>

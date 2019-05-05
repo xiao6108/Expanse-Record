@@ -1,1 +1,24 @@
-<h2>hello world! 這是 edit</h2>
+<div id="buylist">
+  <h1>修改一筆支出
+  </h1>
+  <form action="/expanse/{{{record.id}}}" method="POST">
+    <div class="buy_item control_panel">
+      <label for="date">日期</label>
+      <input type="date" id="date" name="date" value="{{{record.date}}}">
+      <label for="name">名稱</label>
+      <input id="input_name" name="name" placeholder="名稱..." value="{{{record.name}}}">
+      <label for="amount">價錢</label>
+      <input id="input_price" name="amount" placeholder="234..." value="{{{record.amount}}}">
+      <label for="category">類別</label>
+      <select name="category" value="{{{record.category}}}">
+        <option value="table-tennis">休閒運動</option>
+        <option value="user-astronaut">電影娛樂</option>
+        <option value="car">汽油費用</option>
+        <option value="heartbeat">健康檢查</option>
+        <option value="utensils">餐飲伙食</option>
+        <option value="glass-cheers">手搖飲料</option>
+      </select>
+      <button type="submit" class="addbtn" href="/expanse">修改</button>
+    </div>
+  </form>
+</div>

@@ -56,15 +56,21 @@ app.post('/expanse', (req, res) => {
 })
 // 4) 編輯支出的所有屬性 (一次只能編輯一筆) 
 app.get('/expanse/:id/edit', (req, res) => {
-  Record.find((err, record) => {
+  Record.findById(req.params.id, (err, record) => {
     if (err) return console.error(err)
     return res.render('edit', {record: record})  
   })
 })
 app.post('/expanse/:id', (req, res) => {
-  Record.find((err, record) => {
+  Record.findById(req.params.id, (err, record) => {
+    record.name = req.body.name,
+    record.category = req.body.category,
+    record.amount = req.body.amount,
+    record.date = req.body.date,
+    record.save(err=>{
     if (err) return console.error(err)
-    return res.render('edit', {record: record})  
+    return res.redirect('/')
+  }) 
   })
 })
 // 5) 刪除任何一筆支出 (一次只能刪除一筆)
