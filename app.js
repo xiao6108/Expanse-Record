@@ -5,6 +5,8 @@ const exphbs = require('express-handlebars')
 const path = require('path')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
+const helpers = require('handlebars-helpers')()
+const router = express.Router()
 
 mongoose.connect('mongodb://localhost/expanse', {useNewUrlParser: true})
 
@@ -40,66 +42,9 @@ app.get('/', (req, res) => {
       })  
   })
 })
-// 2) 在首頁看到所有支出清單的總金額
-app.get('/expanse', (req, res) => {
-  Record.find((err, record) => {
-    let total = 0
-    for(var i=0;i<record.length;i++){
-      total+=1*(record[i].amount)
-    }
-    if (err) return console.error(err)
-    return res.render('index', {
-      record: record,
-      total: total
-      })  
-  })
-})
-// 3) 新增一筆支出
-app.get('/expanse/new', (req, res) => {
-  return res.render('new')
-})
-app.post('/expanse', (req, res) => {
-  const record = Record({
-    name: req.body.name,
-    category: req.body.category,
-    amount: req.body.amount,
-    date: req.body.date,
-  })
-  record.save(err=>{
-    if (err) return console.error(err)
-    return res.redirect('/')
-  })
-})
-// 4) 編輯支出的所有屬性 (一次只能編輯一筆) 
-app.get('/expanse/:id/edit', (req, res) => {
-  Record.findById(req.params.id, (err, record) => {
-    if (err) return console.error(err)
-    return res.render('edit', {record: record})  
-  })
-})
-app.put('/expanse/:id', (req, res) => {
-  Record.findById(req.params.id, (err, record) => {
-    record.name = req.body.name,
-    record.category = req.body.category,
-    record.amount = req.body.amount,
-    record.date = req.body.date,
-    record.save(err=>{
-    if (err) return console.error(err)
-    return res.redirect('/')
-  }) 
-  })
-})
-// 5) 刪除任何一筆支出 (一次只能刪除一筆)
-app.delete('/expanse/:id/delete', (req, res) => {
-  Record.findById(req.params.id, (err, record) => {
-    if (err) return console.error(err)
-  record.remove(err => {
-    if (err) return console.error(err)
-    return res.redirect('/')
-  })
-  })
-})
 
+app.use('/', require('./routes/home'))
+app.use('/expanse', require('./routes/expanse'))
 
 
 
