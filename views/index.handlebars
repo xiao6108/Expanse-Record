@@ -19,10 +19,12 @@
     <li class="buy_item"><a href="/expanse/{{ this.id }}/edit">></a>
       <i class="fas fa-{{ this.category }}"></i>{{ this.name }}<span class="date">{{ this.date }}</span>
       <div class="price">{{ this.amount }}</div>
-      <div class="del_btn">X</div>
+      <form action="/expanse/{{ this.id }}/delete" method="POST">
+        <button type="submit" class="del_btn">X</button>
+      </form>
     </li>
     {{/each}}
-    <li class="buy_item total">總價
+    <li class="buy_item total">總花費
       <div class="price">{{total}}</div>
     </li>
   </div>

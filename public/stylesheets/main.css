@@ -108,7 +108,16 @@ h1 {
   position: absolute;
   padding: 0px 6px;
   right: 10px;
+  border-radius: 3px;
   cursor: pointer;
+  outline: none;
+  background-color: #f3f3f3;
+  transform: 0.5s;
+}
+form {
+  display: block;
+  margin-top: -25px;
+  padding: 5px;
 }
 .buy_item .del_btn:hover {
   background-color: #38598b;
@@ -139,6 +148,7 @@ h1 {
 .total {
   background-color: #38598b;
   color: #f3f3f3;
+  font-weight: 400;
 }
 .total .price {
   background-color: transparent;

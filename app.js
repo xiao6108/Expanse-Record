@@ -27,8 +27,15 @@ db.once('open', ()=>{
 // 1) 在首頁一次瀏覽所有支出的清單
 app.get('/', (req, res) => {
   Record.find((err, record) => {
+    let total = 0
+    for(var i=0;i<record.length;i++){
+      total+=1*(record[i].amount)
+    }
     if (err) return console.error(err)
-    return res.render('index', {record: record})  
+    return res.render('index', {
+      record: record,
+      total: total
+      })  
   })
 })
 // 2) 在首頁看到所有支出清單的總金額
@@ -82,9 +89,12 @@ app.post('/expanse/:id', (req, res) => {
 })
 // 5) 刪除任何一筆支出 (一次只能刪除一筆)
 app.post('/expanse/:id/delete', (req, res) => {
-  Record.find((err, record) => {
+  Record.findById(req.params.id, (err, record) => {
     if (err) return console.error(err)
-    return res.render('index', {record: record})  
+  record.remove(err => {
+    if (err) return console.error(err)
+    return res.redirect('/')
+  })
   })
 })
 
