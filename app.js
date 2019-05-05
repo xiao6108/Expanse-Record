@@ -3,6 +3,7 @@ const app = express()
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const path = require('path')
+const bodyParser = require('body-parser');
 
 mongoose.connect('mongodb://localhost/expanse', {useNewUrlParser: true})
 
@@ -12,6 +13,7 @@ const Record = require('./models/records')
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/public')))
 
 db.on('error', ()=>{
@@ -41,7 +43,16 @@ app.get('/expanse/new', (req, res) => {
   return res.render('new')
 })
 app.post('/expanse', (req, res) => {
-  return res.render('new')
+  const record = Record({
+    name: req.body.name,
+    category: req.body.category,
+    amount: req.body.amount,
+    date: req.body.date,
+  })
+  record.save(err=>{
+    if (err) return console.error(err)
+    return res.redirect('/')
+  })
 })
 // 4) 編輯支出的所有屬性 (一次只能編輯一筆) 
 app.get('/expanse/:id/edit', (req, res) => {

@@ -1,13 +1,24 @@
 <div id="buylist">
   <h1>新增一筆支出
   </h1>
-  <div class="buy_item control_panel">
-    <label for="date">日期</label>
-    <input type="date">
-    <label>名稱</label>
-    <input id="input_name" placeholder="名稱..." />
-    <label>價錢</label>
-    <input id="input_price" placeholder="234..." />
-    <span><a class="addbtn" href="/expanse">+新增</a></span>
-  </div>
+  <form action="/expanse" method="POST">
+    <div class="buy_item control_panel">
+      <label for="date">日期</label>
+      <input type="date" id="date" name="date">
+      <label for="name">名稱</label>
+      <input id="input_name" name="name" placeholder="名稱..." />
+      <label for="amount">價錢</label>
+      <input id="input_price" name="amount" placeholder="234..." />
+      <label for="category">類別</label>
+      <select name="category">
+        <option value="table-tennis">休閒運動</option>
+        <option value="user-astronaut">電影娛樂</option>
+        <option value="car">汽油費用</option>
+        <option value="heartbeat">健康檢查</option>
+        <option value="utensils">餐飲伙食</option>
+        <option value="glass-cheers">手搖飲料</option>
+      </select>
+      <button type="submit" class="addbtn" href="/expanse">+新增</button>
+    </div>
+  </form>
 </div>
