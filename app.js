@@ -3,7 +3,8 @@ const app = express()
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const path = require('path')
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 mongoose.connect('mongodb://localhost/expanse', {useNewUrlParser: true})
 
@@ -15,6 +16,7 @@ app.set('view engine', 'handlebars')
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/public')))
+app.use(methodOverride('_method'))
 
 db.on('error', ()=>{
   console.log('mongodb error!')
@@ -75,7 +77,7 @@ app.get('/expanse/:id/edit', (req, res) => {
     return res.render('edit', {record: record})  
   })
 })
-app.post('/expanse/:id', (req, res) => {
+app.put('/expanse/:id', (req, res) => {
   Record.findById(req.params.id, (err, record) => {
     record.name = req.body.name,
     record.category = req.body.category,
@@ -88,7 +90,7 @@ app.post('/expanse/:id', (req, res) => {
   })
 })
 // 5) 刪除任何一筆支出 (一次只能刪除一筆)
-app.post('/expanse/:id/delete', (req, res) => {
+app.delete('/expanse/:id/delete', (req, res) => {
   Record.findById(req.params.id, (err, record) => {
     if (err) return console.error(err)
   record.remove(err => {

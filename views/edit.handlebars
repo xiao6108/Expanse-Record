@@ -1,7 +1,7 @@
 <div id="buylist">
   <h1>修改一筆支出
   </h1>
-  <form action="/expanse/{{{record.id}}}" method="POST">
+  <form action="/expanse/{{{record.id}}}?_method=PUT" method="POST">
     <div class="buy_item control_panel">
       <label for="date">日期</label>
       <input type="date" id="date" name="date" value="{{{record.date}}}">
