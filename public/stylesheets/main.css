@@ -14,7 +14,7 @@ html, body {
   background-color: #f3f3f3;
   overflow: hidden;
 }
-/* -------------------------- */
+/* ------------navbar-------------- */
 nav ul li {
   list-style: none;
   color: #f3f3f3;
@@ -25,6 +25,13 @@ nav ul li a {
   list-style: none;
   color: #f3f3f3;
   text-decoration: none;
+}
+nav ul li button {
+  color: #f3f3f3;
+  background-color: #38598b;
+  border: none;
+  width: 40px;
+  font-size: 16px;
 }
 .sidebar {
   height: 100%;
@@ -37,6 +44,8 @@ nav ul li a {
   justify-content: space-between;
   flex-direction: column;
 }
+
+/* ------------container-------------- */
 
 #buylist {
   display: inline-block;
@@ -57,7 +66,7 @@ h1 {
   font-weight: 600;
 }
 
-/* -------------------------- */
+/* ------------items_list-------------- */
 #items_list {
   margin-top: 10px;
   padding: 5px;
@@ -119,6 +128,13 @@ form {
   margin-top: -25px;
   padding: 5px;
 }
+
+#select {
+  margin-right: 10px;
+  width: 80px;
+  height: 25px;
+}
+
 .buy_item .del_btn:hover {
   background-color: #38598b;
   color: white;
@@ -127,6 +143,7 @@ form {
   cursor: pointer;
   margin-left: 10px;
   padding: 3px;
+  font-size: 12px;
   border: solid 3px #38598b;
 }
 .buy_item .addbtn:hover {
@@ -135,8 +152,9 @@ form {
 }
 
 .date {
-  font-size: 15px;
+  font-size: 12px;
   padding: 0px 10px;
+  bottom: 2px;
   color: #919191;
   
 }
@@ -158,3 +176,48 @@ i {
   margin-right: 5px
 }
 
+
+/* -------------button------------- */
+
+nav button:hover {
+  animation: rotate 0.7s ease-in-out both;
+}
+nav button:hover span {
+  animation: storm 0.7s ease-in-out both;
+  animation-delay: 0.06s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+  25% {
+    transform: rotate(6deg) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(-5deg) translate3d(0, 0, 0);
+  }
+  75% {
+    transform: rotate(4deg) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
+@keyframes storm {
+  0% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+  25% {
+    transform: translate3d(6px, 0, 0) translateZ(0);
+  }
+  50% {
+    transform: translate3d(-5px, 0, 0) translateZ(0);
+  }
+  75% {
+    transform: translate3d(4px, 0, 0) translateZ(0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+}

@@ -1,17 +1,30 @@
 <div id="buylist">
   <h1>記帳本</h1>
   <div class="buy_item control_panel">
-    <label>月份</label>
-    <select>
-      <option value="table-tennis">休閒運動</option>
-      <option value="user-astronaut">電影娛樂</option>
-      <option value="car">汽油費用</option>
-      <option value="heartbeat">健康檢查</option>
-      <option value="utensils">餐飲伙食</option>
-      <option value="glass-cheers">手搖飲料</option>
+    <label>類別</label>
+    <select id="select" name="form" onchange="location = this.value;">
+      <option value="/expanse/table-tennis">休閒運動</option>
+      <option value="/expanse/user-astronaut">電影娛樂</option>
+      <option value="/expanse/car">汽油費用</option>
+      <option value="/expanse/heartbeat">健康檢查</option>
+      <option value="/expanse/utensils">餐飲伙食</option>
+      <option value="/expanse/glass-cheers">手搖飲料</option>
     </select>
-    <label>價錢</label>
-    <input id="input_price" placeholder="234..." />
+    <label>月份</label>
+    <select id="select" name="form" onchange="location = this.value;">
+      <option value="/expanse/01">一月</option>
+      <option value="/expanse/02">二月</option>
+      <option value="/expanse/03">三月</option>
+      <option value="/expanse/04">四月</option>
+      <option value="/expanse/05">五月</option>
+      <option value="/expanse/06">六月</option>
+      <option value="/expanse/07">七月</option>
+      <option value="/expanse/08">八月</option>
+      <option value="/expanse/09">九月</option>
+      <option value="/expanse/10">十月</option>
+      <option value="/expanse/11">十一月</option>
+      <option value="/expanse/12">十二月</option>
+    </select>
     <span><a class="addbtn" href="/expanse/new">+新增</a></span>
   </div>
   <div id="items_list">
