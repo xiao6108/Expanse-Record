@@ -34,8 +34,15 @@ app.get('/', (req, res) => {
 // 2) 在首頁看到所有支出清單的總金額
 app.get('/expanse', (req, res) => {
   Record.find((err, record) => {
+    let total = 0
+    for(var i=0;i<record.length;i++){
+      total+=1*(record[i].amount)
+    }
     if (err) return console.error(err)
-    return res.render('index', {record: record})  
+    return res.render('index', {
+      record: record,
+      total: total
+      })  
   })
 })
 // 3) 新增一筆支出
