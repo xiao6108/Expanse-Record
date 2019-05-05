@@ -1,14 +1,21 @@
 <div id="buylist">
   <h1>記帳本</h1>
   <div class="buy_item control_panel">
-    <label>產品名</label>
-    <input id="input_name" placeholder="名稱..." />
+    <label>月份</label>
+    <select>
+      <option value="volvo">Volvo</option>
+      <option value="saab">Saab</option>
+      <option value="mercedes">Mercedes</option>
+      <option value="audi">Audi</option>
+    </select>
     <label>價錢</label>
-    <input id="input_price" placeholder="234..." /><span class="addbtn">+新增</span>
+    <input id="input_price" placeholder="234..." />
+    <span><a class="addbtn" href="/expanse/new">+新增</a></span>
   </div>
   <div id="items_list">
     {{#each record}}
-    <li class="buy_item"><i class="fas fa-{{ this.category }}"></i>{{ this.name }}
+    <li class="buy_item">
+      <i class="fas fa-{{ this.category }}"></i>{{ this.name }}<span class="date">{{ this.date }}</span>
       <div class="price">{{ this.amount }}</div>
       <div class="del_btn">X</div>
     </li>
