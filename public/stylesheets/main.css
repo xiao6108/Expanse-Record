@@ -11,7 +11,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #e7eaf6;
+  background-color: orange;
 }
 
 #buylist {
@@ -24,7 +24,7 @@ html, body {
 
 h1 {
   padding: 10px 20px;
-  margin-top: -20px;
+  margin-top: -22px;
   margin-left: -22px;
   margin-right: -22px;
   border-bottom: solid 4px #444;
