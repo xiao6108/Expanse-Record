@@ -41,6 +41,12 @@ app.use((req, res, next) => {
   next()
 })
 
+app.use((req, res, next) => {
+  res.locals.user = req.user
+  res.locals.isAuthenticated = req.isAuthenticated()
+  next()
+})
+
 app.use('/', require('./routes/home'))
 app.use('/expanse', require('./routes/expanse'))
 app.use('/users', require('./routes/user'))

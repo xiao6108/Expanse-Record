@@ -20,7 +20,11 @@
     <ul>
       <li><button><a href="/expanse">帳務總覽</a></button></li>
       <li><button><a href="/expanse/new">新增支出</a></button></li>
+      {{#if isAuthenticated}}
+      <li><button><a href="/users/logout">會員登出</a></button></li>
+      {{else}}
       <li><button><a href="/users/login">會員登入</a></button></li>
+      {{/if}}
     </ul>
   </nav>
   {{{body}}}
