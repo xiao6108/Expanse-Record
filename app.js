@@ -7,6 +7,8 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const helpers = require('handlebars-helpers')()
 const router = express.Router()
+const session = require('express-session')
+const passport = require('passport')
 
 mongoose.connect('mongodb://localhost/expanse', { useNewUrlParser: true })
 
@@ -27,7 +29,17 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('mongodb connected')
 })
-
+app.use(session({
+  secret: 'your secret key',
+}))
+// 使用 Passport
+require('./config/passport')(passport)
+app.use(passport.initialize())
+app.use(passport.session())
+app.use((req, res, next) => {
+  res.locals.user = req.user
+  next()
+})
 
 app.use('/', require('./routes/home'))
 app.use('/expanse', require('./routes/expanse'))
