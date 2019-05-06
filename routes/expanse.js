@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const Record = require('../models/records')
+const { authenticated } = require('../config/auth')
 
 // 1) 在首頁看到所有支出清單的總金額
-router.get('/', (req, res) => {
+router.get('/', authenticated, (req, res) => {
   Record.find((err, record) => {
     let total = 0
     for (var i = 0; i < record.length; i++) {
@@ -17,7 +18,7 @@ router.get('/', (req, res) => {
   })
 })
 // 2) 過濾類別、月份
-router.get('/category/:category', (req, res) => {
+router.get('/category/:category', authenticated, (req, res) => {
   Record.find({ category: req.params.category }, (err, record) => {
     if (err) return console.log('category filter err')
     let total = 0
@@ -30,7 +31,7 @@ router.get('/category/:category', (req, res) => {
     })
   })
 })
-router.get('/month/:date', (req, res) => {
+router.get('/month/:date', authenticated, (req, res) => {
   const month = req.params.date
   Record.find((err, records) => {
     if (err) return console.log('month err!')
@@ -50,10 +51,10 @@ router.get('/month/:date', (req, res) => {
 })
 
 // 3) 新增一筆支出
-router.get('/new', (req, res) => {
+router.get('/new', authenticated, (req, res) => {
   return res.render('new')
 })
-router.post('', (req, res) => {
+router.post('', authenticated, (req, res) => {
   const record = Record({
     name: req.body.name,
     category: req.body.category,
@@ -66,13 +67,13 @@ router.post('', (req, res) => {
   })
 })
 // 4) 編輯支出的所有屬性 (一次只能編輯一筆) 
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', authenticated, (req, res) => {
   Record.findById(req.params.id, (err, record) => {
     if (err) return console.error(err)
     return res.render('edit', { record: record })
   })
 })
-router.put('/:id', (req, res) => {
+router.put('/:id', authenticated, (req, res) => {
   Record.findById(req.params.id, (err, record) => {
     record.name = req.body.name,
       record.category = req.body.category,
@@ -85,7 +86,7 @@ router.put('/:id', (req, res) => {
   })
 })
 // 5) 刪除任何一筆支出 (一次只能刪除一筆)
-router.delete('/:id/delete', (req, res) => {
+router.delete('/:id/delete', authenticated, (req, res) => {
   Record.findById(req.params.id, (err, record) => {
     if (err) return console.error(err)
     record.remove(err => {
