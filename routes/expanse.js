@@ -5,7 +5,7 @@ const { authenticated } = require('../config/auth')
 
 // 1) 在首頁看到所有支出清單的總金額
 router.get('/', authenticated, (req, res) => {
-  Record.find((err, record) => {
+  Record.find({ userId: req.user._id }, (err, record) => {
     let total = 0
     for (var i = 0; i < record.length; i++) {
       total += 1 * (record[i].amount)
@@ -19,7 +19,7 @@ router.get('/', authenticated, (req, res) => {
 })
 // 2) 過濾類別、月份
 router.get('/category/:category', authenticated, (req, res) => {
-  Record.find({ category: req.params.category }, (err, record) => {
+  Record.find({ userId: req.user._id, category: req.params.category }, (err, record) => {
     if (err) return console.log('category filter err')
     let total = 0
     for (var i = 0; i < record.length; i++) {
@@ -33,7 +33,7 @@ router.get('/category/:category', authenticated, (req, res) => {
 })
 router.get('/month/:date', authenticated, (req, res) => {
   const month = req.params.date
-  Record.find((err, records) => {
+  Record.find({ userId: req.user._id }, (err, records) => {
     if (err) return console.log('month err!')
     const monthNum = records.filter(record => {
       return month === record.date.substring(5, 7)
@@ -60,6 +60,7 @@ router.post('', authenticated, (req, res) => {
     category: req.body.category,
     amount: req.body.amount,
     date: req.body.date,
+    userId: req.user._id,
   })
   record.save(err => {
     if (err) return console.error(err)
@@ -68,13 +69,13 @@ router.post('', authenticated, (req, res) => {
 })
 // 4) 編輯支出的所有屬性 (一次只能編輯一筆) 
 router.get('/:id/edit', authenticated, (req, res) => {
-  Record.findById(req.params.id, (err, record) => {
+  Record.findOne({ _id: req.params.id, userId: req.user._id }, (err, record) => {
     if (err) return console.error(err)
     return res.render('edit', { record: record })
   })
 })
 router.put('/:id', authenticated, (req, res) => {
-  Record.findById(req.params.id, (err, record) => {
+  Record.findOne({ _id: req.params.id, userId: req.user._id }, (err, record) => {
     record.name = req.body.name,
       record.category = req.body.category,
       record.amount = req.body.amount,
@@ -87,7 +88,7 @@ router.put('/:id', authenticated, (req, res) => {
 })
 // 5) 刪除任何一筆支出 (一次只能刪除一筆)
 router.delete('/:id/delete', authenticated, (req, res) => {
-  Record.findById(req.params.id, (err, record) => {
+  Record.findOne({ _id: req.params.id, userId: req.user._id }, (err, record) => {
     if (err) return console.error(err)
     record.remove(err => {
       if (err) return console.error(err)

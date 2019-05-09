@@ -5,7 +5,7 @@ const { authenticated } = require('../config/auth')
 
 // 1) 在首頁一次瀏覽所有支出的清單
 router.get('/', authenticated, (req, res) => {
-  Record.find((err, record) => {
+  Record.find({ userId: req.user._id }, (err, record) => {
     let total = 0
     for (var i = 0; i < record.length; i++) {
       total += 1 * (record[i].amount)
