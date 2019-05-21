@@ -49,9 +49,15 @@ app.use((req, res, next) => {
   next()
 })
 
+// 判別開發環境
+if (process.env.NODE_ENV !== 'production') {      // 如果不是 production 模式
+  require('dotenv').config()                      // 使用 dotenv 讀取 .env 檔案
+}
+
 app.use('/', require('./routes/home'))
 app.use('/expanse', require('./routes/expanse'))
 app.use('/users', require('./routes/user'))
+app.use('/auth', require('./routes/auths'))
 
 
 app.listen(3000, () => {
