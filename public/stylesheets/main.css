@@ -276,6 +276,9 @@ nav button:hover span {
   border: solid 2px #38598b;
   cursor: pointer;
 }
+a{
+  text-decoration: none;
+}
 .btn--right:hover {
   color: #f3f3f3;
   background-color: #38598b;

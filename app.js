@@ -10,6 +10,10 @@ const router = express.Router()
 const session = require('express-session')
 const passport = require('passport')
 
+if (process.env.NODE_ENV !== 'production') {      // 如果不是 production 模式
+  require('dotenv').config()                      // 使用 dotenv 讀取 .env 檔案
+}
+
 mongoose.connect('mongodb://localhost/todo', { useNewUrlParser: true, useCreateIndex: true })
 
 const db = mongoose.connection
@@ -48,11 +52,6 @@ app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   next()
 })
-
-// 判別開發環境
-if (process.env.NODE_ENV !== 'production') {      // 如果不是 production 模式
-  require('dotenv').config()                      // 使用 dotenv 讀取 .env 檔案
-}
 
 app.use('/', require('./routes/home'))
 app.use('/expanse', require('./routes/expanse'))
