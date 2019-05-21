@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== 'production') {      // 如果不是 production 模
   require('dotenv').config()                      // 使用 dotenv 讀取 .env 檔案
 }
 
-mongoose.connect('mongodb://localhost/todo', { useNewUrlParser: true, useCreateIndex: true })
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/todo', { useNewUrlParser: true, useCreateIndex: true })
 
 const db = mongoose.connection
 const Record = require('./models/records')
@@ -59,6 +59,6 @@ app.use('/users', require('./routes/user'))
 app.use('/auth', require('./routes/auths'))
 
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('app is running')
 })
