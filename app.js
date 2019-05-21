@@ -10,7 +10,7 @@ const router = express.Router()
 const session = require('express-session')
 const passport = require('passport')
 
-mongoose.connect('mongodb://localhost/expanse', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/todo', { useNewUrlParser: true, useCreateIndex: true })
 
 const db = mongoose.connection
 const Record = require('./models/records')
@@ -31,6 +31,8 @@ db.once('open', () => {
 })
 app.use(session({
   secret: 'your secret key',
+  resave: 'false',
+  saveUninitialized: 'false',
 }))
 // 使用 Passport
 require('./config/passport')(passport)
