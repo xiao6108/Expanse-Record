@@ -27,9 +27,9 @@
 8. 或是執行 `https://stark-ridge-20840.herokuapp.com`
 
 ## 測試帳號
-Account
-email：test@mail
-password：test
+* Account
+* email：test@mail
+* password：test
 
 ## 登入畫面
 ![](https://i.imgur.com/lpF7wgo.png)
